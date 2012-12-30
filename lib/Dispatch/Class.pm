@@ -22,13 +22,15 @@ sub class_case {
 		my ($x) = @_;
 		my $blessed = blessed $x;
 		my $ref = ref $x;
+		my $DOES;
 		my @table = @prototable;
 		while (my ($key, $value) = splice @table, 0, 2) {
 			return $value if
 				!defined $key ? !defined $x :
 				$key eq '*' ? 1 :
 				$key eq ':str' ? !$ref :
-				$key eq $ref || ($blessed && $x->isa($key))
+				$key eq $ref ? 1 :
+				$blessed && ($DOES ||= $x->can('DOES') || 'isa', $x->$DOES($key))
 			;
 		}
 		()
@@ -137,6 +139,12 @@ L<C<eq>|perlop/"Equality Operators">.
 Any other string is interpreted as a class name and matches if the input value
 is an object for which C<< $obj->isa($CLASS) >> is true. To match any kind of
 object (blessed value), use the key C<'UNIVERSAL'>.
+
+Starting with L<Perl 5.10.0|perl5100delta/UNIVERSAL::DOES()> Perl supports
+checking for roles with L<C<DOES>|UNIVERSAL/obj-DOES-ROLE->, so
+C<Dispatch::Class> actually uses C<< $obj->DOES($CLASS) >> instead of C<isa>.
+This still returns true for normal base classes but it also accepts roles that
+have been composed into the object's class.
 
 =back
 
