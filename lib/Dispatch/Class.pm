@@ -48,7 +48,7 @@ __END__
 
 =head1 NAME
 
-Dispatch::Class - Dispatch on the type of an argument
+Dispatch::Class - dispatch on the type (class) of an argument
 
 =head1 SYNOPSIS
 
@@ -181,7 +181,7 @@ Lukas Mai, C<< <l.mai at web.de> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2012 Lukas Mai.
+Copyright 2013 Lukas Mai.
 
 This program is free software; you can redistribute it and/or modify it
 under the terms of either: the GNU General Public License as published
