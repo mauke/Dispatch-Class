@@ -1,0 +1,7 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+lib/Dispatch/Class.pm
+t/00-load.t
+t/basic.t
