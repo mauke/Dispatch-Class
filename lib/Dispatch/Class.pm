@@ -5,16 +5,13 @@ use strict;
 
 our $VERSION = '0.01';
 
-use Sub::Exporter -setup => {
-    exports => [
-        qw(
-            class_case
-            dispatch
-        )
-    ],
-};
-
 use Scalar::Util qw(blessed);
+
+use parent 'Exporter::Tiny';
+our @EXPORT_OK = qw(
+    class_case
+    dispatch
+);
 
 sub class_case {
     my @prototable = @_;
@@ -168,12 +165,12 @@ list/undef if no I<KEY> matches).
 
 =back
 
-This module uses L<C<Sub::Exporter>|Sub::Exporter>, so you can rename the
+This module uses L<C<Exporter::Tiny>|Exporter::Tiny>, so you can rename the
 imported functions at L<C<use>|perlfunc/use> time.
 
 =head1 SEE ALSO
 
-L<Sub::Exporter>
+L<Exporter::Tiny>
 
 =head1 AUTHOR
 

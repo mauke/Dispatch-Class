@@ -27,10 +27,10 @@ my %opt = (
         'IO::Handle' => 0,
     },
     PREREQ_PM => {
-        'warnings'      => 0,
-        'strict'        => 0,
-        'Sub::Exporter' => 0,
-        'Scalar::Util'  => 0,
+        'warnings'       => 0,
+        'strict'         => 0,
+        'Exporter::Tiny' => 0,
+        'Scalar::Util'   => 0,
     },
     MIN_PERL_VERSION => '5.6.0',
 
