@@ -6,40 +6,40 @@ use strict;
 our $VERSION = '0.01';
 
 use Sub::Exporter -setup => {
-	exports => [
-		qw(
-			class_case
-			dispatch
-		)
-	],
+    exports => [
+        qw(
+            class_case
+            dispatch
+        )
+    ],
 };
 
 use Scalar::Util qw(blessed);
 
 sub class_case {
-	my @prototable = @_;
-	sub {
-		my ($x) = @_;
-		my $blessed = blessed $x;
-		my $ref = ref $x;
-		my $DOES;
-		my @table = @prototable;
-		while (my ($key, $value) = splice @table, 0, 2) {
-			return $value if
-				!defined $key ? !defined $x :
-				$key eq '*' ? 1 :
-				$key eq ':str' ? !$ref :
-				$key eq $ref ? 1 :
-				$blessed && ($DOES ||= $x->can('DOES') || 'isa', $x->$DOES($key))
-			;
-		}
-		()
-	}
+    my @prototable = @_;
+    sub {
+        my ($x) = @_;
+        my $blessed = blessed $x;
+        my $ref = ref $x;
+        my $DOES;
+        my @table = @prototable;
+        while (my ($key, $value) = splice @table, 0, 2) {
+            return $value if
+                !defined $key ? !defined $x :
+                $key eq '*' ? 1 :
+                $key eq ':str' ? !$ref :
+                $key eq $ref ? 1 :
+                $blessed && ($DOES ||= $x->can('DOES') || 'isa', $x->$DOES($key))
+            ;
+        }
+        ()
+    }
 }
 
 sub dispatch {
-	my $chk = &class_case;
-	sub { ($chk->($_[0]) || return)->($_[0]) }
+    my $chk = &class_case;
+    sub { ($chk->($_[0]) || return)->($_[0]) }
 }
 
 'ok'
